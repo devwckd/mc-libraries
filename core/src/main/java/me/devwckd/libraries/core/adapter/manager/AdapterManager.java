@@ -10,8 +10,9 @@ import me.devwckd.libraries.core.registry.AdapterRegistry;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
-import sun.jvm.hotspot.runtime.ConstructionException;
 
+import java.io.InvalidClassException;
+import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 
 /**
@@ -39,7 +40,7 @@ public class AdapterManager {
 
             final Constructor<?> primaryConstructor = adapterClass.getConstructors()[0];
             if(primaryConstructor.getParameters().length > 0) {
-                throw new ConstructionException("Adapters cannot have dependencies on their constructor");
+                throw new IllegalStateException("Adapters cannot have dependencies on their constructor");
             }
 
             final Object adapterInstance;
