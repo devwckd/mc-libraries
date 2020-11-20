@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    implementation 'com.github.devwckd:java-hash-graph:167ce8499e'
+    implementation 'net.oneandone.reflections8:reflections8:0.10.5'
+}

@@ -1,0 +1,5 @@
+rootProject.name = 'new-library'
+include 'core'
+include 'spigot'
+include 'bungee'
+

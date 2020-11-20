@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'me.devwckd'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    implementation project(":core")
+}

@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'me.devwckd'
+version '1.0-SNAPSHOT'
+
+subprojects {
+    group 'me.devwckd.libraries'
+    version '0.1'
+
+    afterEvaluate {
+        repositories {
+            // Central repositories
+            mavenCentral()
+
+            // Spigot repositories
+            maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+            maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+
+            // Jitpack repositories
+            maven { url 'https://jitpack.io' }
+        }
+
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
