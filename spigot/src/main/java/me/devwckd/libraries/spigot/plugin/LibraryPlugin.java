@@ -1,7 +1,6 @@
 package me.devwckd.libraries.spigot.plugin;
 
 import lombok.Getter;
-import me.devwckd.libraries.core.adapter.entity.adapter.Adapter;
 import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
