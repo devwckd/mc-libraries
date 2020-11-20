@@ -1,4 +1,4 @@
-package me.devwckd.libraries.spigot.plugin.util;
+package me.devwckd.libraries.spigot.util;
 
 import lombok.*;
 import org.apache.commons.lang.ArrayUtils;
