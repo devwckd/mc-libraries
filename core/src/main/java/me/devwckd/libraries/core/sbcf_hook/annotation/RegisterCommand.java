@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.sbcf.annotation;
+package me.devwckd.libraries.core.sbcf_hook.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

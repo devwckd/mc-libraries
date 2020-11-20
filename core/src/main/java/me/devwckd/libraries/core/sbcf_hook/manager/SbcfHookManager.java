@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.sbcf.manager;
+package me.devwckd.libraries.core.sbcf_hook.manager;
 
 import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.adapter.annotation.RegisterAdapter;
@@ -10,9 +10,7 @@ import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static java.util.Arrays.*;
 
@@ -21,7 +19,7 @@ import static java.util.Arrays.*;
  */
 
 @RequiredArgsConstructor
-public class SbcfManager {
+public class SbcfHookManager {
 
     private final DependencyManager dependencyManager;
     private final String packagePrefix;
