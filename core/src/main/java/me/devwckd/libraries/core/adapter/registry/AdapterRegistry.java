@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.registry;
+package me.devwckd.libraries.core.adapter.registry;
 
 import me.devwckd.libraries.core.adapter.entity.adapter.Adapter;
 

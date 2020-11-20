@@ -4,6 +4,8 @@ import lombok.Getter;
 import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
+import me.devwckd.libraries.core.sbcf.manager.SbcfManager;
+import me.saiintbrisson.bukkit.command.BukkitFrame;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -16,6 +18,9 @@ public class LibraryPlugin extends JavaPlugin {
     private DependencyManager dependencyManager;
     private AdapterManager adapterManager;
     private ModuleManager moduleManager;
+
+    private BukkitFrame bukkitFrame;
+    private SbcfManager sbcfManager;
 
     @Override
     public final void onLoad() {
@@ -60,6 +65,11 @@ public class LibraryPlugin extends JavaPlugin {
         moduleManager = new ModuleManager(dependencyManager, packagePrefix);
         moduleManager.search();
         moduleManager.instantiate();
+
+        bukkitFrame = new BukkitFrame(this);
+
+        sbcfManager = new SbcfManager(dependencyManager, packagePrefix);
+        sbcfManager.load(bukkitFrame::registerCommands);
     }
 
 }

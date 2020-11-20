@@ -1,7 +1,7 @@
 package me.devwckd.libraries.core.adapter;
 
 import me.devwckd.libraries.core.adapter.entity.adapter.Adapter;
-import me.devwckd.libraries.core.registry.AdapterRegistry;
+import me.devwckd.libraries.core.adapter.registry.AdapterRegistry;
 
 /**
  * @author devwckd

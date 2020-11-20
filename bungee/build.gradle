@@ -9,4 +9,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     implementation project(":core")
+    implementation 'com.github.SaiintBrisson.command-framework:bungee:1.1.0'
 }
