@@ -1,6 +1,8 @@
 package me.devwckd.libraries.spigot.plugin;
 
 import lombok.Getter;
+import me.devwckd.libraries.core.adapter.entity.adapter.Adapter;
+import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class LibraryPlugin extends JavaPlugin {
 
     private DependencyManager dependencyManager;
+    private AdapterManager adapterManager;
     private ModuleManager moduleManager;
 
     @Override
@@ -46,10 +49,17 @@ public class LibraryPlugin extends JavaPlugin {
     }
 
     private void initVariables() {
+        final String packagePrefix = getClass().getPackage().getName();
+
         dependencyManager = new DependencyManager();
         dependencyManager.storeLoadedDependency(this);
 
-        moduleManager = new ModuleManager(dependencyManager, getClass().getPackage().getName());
+        adapterManager = new AdapterManager(dependencyManager, packagePrefix);
+        dependencyManager.storeLoadedDependency(adapterManager.getAdapters());
+
+        moduleManager = new ModuleManager(dependencyManager, packagePrefix);
+        moduleManager.search();
+        moduleManager.instantiate();
     }
 
 }

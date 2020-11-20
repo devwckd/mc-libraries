@@ -5,6 +5,8 @@ import me.devwckd.libraries.core.dependency.entity.unloaded_dependency.UnloadedD
 import me.devwckd.libraries.core.dependency.registry.dependency.LoadedDependencyRegistry;
 import me.devwckd.libraries.core.dependency.registry.dependency.UnloadedDependencyRegistry;
 
+import java.lang.reflect.Parameter;
+
 /**
  * @author devwckd
  */

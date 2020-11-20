@@ -2,6 +2,7 @@ package me.devwckd.libraries.bungee.plugin;
 
 
 import lombok.Getter;
+import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -14,6 +15,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class LibraryPlugin extends Plugin {
 
     private DependencyManager dependencyManager;
+    private AdapterManager adapterManager;
     private ModuleManager moduleManager;
 
     @Override
@@ -47,10 +49,17 @@ public class LibraryPlugin extends Plugin {
     }
 
     private void initVariables() {
+        final String packagePrefix = getClass().getPackage().getName();
+
         dependencyManager = new DependencyManager();
         dependencyManager.storeLoadedDependency(this);
 
-        moduleManager = new ModuleManager(dependencyManager, getClass().getPackage().getName());
+        adapterManager = new AdapterManager(dependencyManager, packagePrefix);
+        dependencyManager.storeLoadedDependency(adapterManager.getAdapters());
+
+        moduleManager = new ModuleManager(dependencyManager, packagePrefix);
+        moduleManager.search();
+        moduleManager.instantiate();
     }
 
 
