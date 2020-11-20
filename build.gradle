@@ -31,6 +31,12 @@ subprojects {
         }
 
         publishing {
+            publications {
+                shadow(MavenPublication) { publication ->
+                    project.shadow.component(publication)
+                }
+            }
+
             repositories {
                 maven {
                     name = "GitHubPackages"

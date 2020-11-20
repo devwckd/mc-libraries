@@ -15,5 +15,5 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    implementation project(":core")
+    implementation project(path: ':core', configuration: 'shadow')
 }
