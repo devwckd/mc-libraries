@@ -54,6 +54,7 @@ public class LibraryPlugin extends JavaPlugin {
         dependencyManager.storeLoadedDependency(this);
 
         adapterManager = new AdapterManager(dependencyManager, packagePrefix);
+        adapterManager.load();
         dependencyManager.storeLoadedDependency(adapterManager.getAdapters());
 
         moduleManager = new ModuleManager(dependencyManager, packagePrefix);

@@ -6,13 +6,10 @@ import me.devwckd.libraries.core.adapter.Adapters;
 import me.devwckd.libraries.core.adapter.annotation.RegisterAdapter;
 import me.devwckd.libraries.core.adapter.entity.adapter.Adapter;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
-import me.devwckd.libraries.core.registry.AdapterRegistry;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ConfigurationBuilder;
 
-import java.io.InvalidClassException;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 
 /**
@@ -28,7 +25,7 @@ public class AdapterManager {
 
     private final Adapters adapters = new Adapters();
 
-    private void load() {
+    public void load() {
         registerAdapters();
     }
 
