@@ -3,9 +3,11 @@ package me.devwckd.libraries.spigot.plugin;
 import lombok.Getter;
 import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
+import me.devwckd.libraries.core.listener.manager.ListenerManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
 import me.devwckd.libraries.core.sbcf_hook.manager.SbcfHookManager;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -18,6 +20,7 @@ public class LibraryPlugin extends JavaPlugin {
     private DependencyManager dependencyManager;
     private AdapterManager adapterManager;
     private ModuleManager moduleManager;
+    private ListenerManager listenerManager;
 
     private BukkitFrame bukkitFrame;
     private SbcfHookManager sbcfHookManager;
@@ -66,8 +69,10 @@ public class LibraryPlugin extends JavaPlugin {
         moduleManager.search();
         moduleManager.instantiate();
 
-        bukkitFrame = new BukkitFrame(this);
+        listenerManager = new ListenerManager(dependencyManager, packagePrefix);
+        listenerManager.load(listenerInstance -> getServer().getPluginManager().registerEvents((Listener) listenerInstance, this));
 
+        bukkitFrame = new BukkitFrame(this);
         sbcfHookManager = new SbcfHookManager(dependencyManager, packagePrefix);
         sbcfHookManager.load(bukkitFrame::registerCommands);
     }

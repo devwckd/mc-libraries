@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.sbcf_hook.manager;
+package me.devwckd.libraries.core.listener.manager;
 
 import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.adapter.annotation.RegisterAdapter;
@@ -12,14 +12,14 @@ import org.reflections.util.ConfigurationBuilder;
 import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
 
-import static java.util.Arrays.*;
+import static java.util.Arrays.stream;
 
 /**
  * @author devwckd
  */
 
 @RequiredArgsConstructor
-public class SbcfHookManager {
+public class ListenerManager {
 
     private final DependencyManager dependencyManager;
     private final String packagePrefix;
@@ -49,7 +49,11 @@ public class SbcfHookManager {
                 return;
             }
 
-            objectSupplier.accept(adapterInstance);
+            try {
+                objectSupplier.accept(adapterInstance);
+            } catch (ClassCastException exception) {
+                exception.printStackTrace();
+            }
         }
     }
 
