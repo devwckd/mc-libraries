@@ -5,6 +5,7 @@ import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.listener.manager.ListenerManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
+import me.devwckd.libraries.core.query_loader.manager.QueryLoaderManager;
 import me.devwckd.libraries.core.sbcf_hook.manager.SbcfHookManager;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import org.bukkit.event.Listener;
@@ -18,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class LibraryPlugin extends JavaPlugin {
 
     private DependencyManager dependencyManager;
+    private QueryLoaderManager queryLoaderManager;
     private AdapterManager adapterManager;
     private ModuleManager moduleManager;
     private ListenerManager listenerManager;
@@ -60,6 +62,10 @@ public class LibraryPlugin extends JavaPlugin {
 
         dependencyManager = new DependencyManager();
         dependencyManager.storeLoadedDependency(this);
+
+        queryLoaderManager = new QueryLoaderManager(dependencyManager, this);
+        queryLoaderManager.load();
+        dependencyManager.storeLoadedDependency(queryLoaderManager.getQueries());
 
         adapterManager = new AdapterManager(dependencyManager, packagePrefix);
         adapterManager.load();

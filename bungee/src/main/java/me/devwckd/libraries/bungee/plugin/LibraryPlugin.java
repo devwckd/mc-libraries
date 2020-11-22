@@ -6,6 +6,7 @@ import me.devwckd.libraries.core.adapter.manager.AdapterManager;
 import me.devwckd.libraries.core.dependency.manager.DependencyManager;
 import me.devwckd.libraries.core.listener.manager.ListenerManager;
 import me.devwckd.libraries.core.module.manager.ModuleManager;
+import me.devwckd.libraries.core.query_loader.manager.QueryLoaderManager;
 import me.devwckd.libraries.core.sbcf_hook.manager.SbcfHookManager;
 import me.saiintbrisson.bungee.command.BungeeFrame;
 import net.md_5.bungee.api.plugin.Listener;
@@ -19,6 +20,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class LibraryPlugin extends Plugin {
 
     private DependencyManager dependencyManager;
+    private QueryLoaderManager queryLoaderManager;
     private AdapterManager adapterManager;
     private ModuleManager moduleManager;
     private ListenerManager listenerManager;
@@ -61,6 +63,10 @@ public class LibraryPlugin extends Plugin {
 
         dependencyManager = new DependencyManager();
         dependencyManager.storeLoadedDependency(this);
+
+        queryLoaderManager = new QueryLoaderManager(dependencyManager, this);
+        queryLoaderManager.load();
+        dependencyManager.storeLoadedDependency(queryLoaderManager.getQueries());
 
         adapterManager = new AdapterManager(dependencyManager, packagePrefix);
         adapterManager.load();
