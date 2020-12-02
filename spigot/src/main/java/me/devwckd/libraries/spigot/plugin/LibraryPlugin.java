@@ -1,12 +1,12 @@
 package me.devwckd.libraries.spigot.plugin;
 
 import lombok.Getter;
-import me.devwckd.libraries.core.adapter.manager.AdapterManager;
-import me.devwckd.libraries.core.dependency.manager.DependencyManager;
-import me.devwckd.libraries.core.listener.manager.ListenerManager;
-import me.devwckd.libraries.core.module.manager.ModuleManager;
-import me.devwckd.libraries.core.query_loader.manager.QueryLoaderManager;
-import me.devwckd.libraries.core.sbcf_hook.manager.SbcfHookManager;
+import me.devwckd.libraries.core.manager.AdapterManager;
+import me.devwckd.libraries.core.manager.DependencyManager;
+import me.devwckd.libraries.core.manager.ListenerManager;
+import me.devwckd.libraries.core.manager.ModuleManager;
+import me.devwckd.libraries.core.manager.QueryLoaderManager;
+import me.devwckd.libraries.core.manager.SbcfHookManager;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Getter
 public class LibraryPlugin extends JavaPlugin {
 
+    private final String packagePrefix = getClass().getPackage().getName();
+
     private DependencyManager dependencyManager;
     private QueryLoaderManager queryLoaderManager;
     private AdapterManager adapterManager;
@@ -27,16 +29,20 @@ public class LibraryPlugin extends JavaPlugin {
     private BukkitFrame bukkitFrame;
     private SbcfHookManager sbcfHookManager;
 
+    private boolean isShutdown = false;
+
     @Override
     public final void onLoad() {
-        initVariables();
+        init();
 
+        if(isShutdown) return;
         load();
         moduleManager.load();
     }
 
     @Override
     public final void onEnable() {
+        if(isShutdown) return;
         enable();
         moduleManager.enable();
     }
@@ -57,27 +63,48 @@ public class LibraryPlugin extends JavaPlugin {
         moduleManager.reload();
     }
 
-    private void initVariables() {
-        final String packagePrefix = getClass().getPackage().getName();
+    public void performShutdown() {
+        this.isShutdown = true;
+        getServer().getPluginManager().disablePlugin(this);
+    }
 
+    private void init() {
+        initDependencyManager();
+        initQueryLoader();
+        initAdapterManager();
+        initModuleManager();
+        initListenerManager();
+        initSbcfHook();
+    }
+
+    private void initDependencyManager() {
         dependencyManager = new DependencyManager();
         dependencyManager.storeLoadedDependency(this);
+    }
 
+    private void initQueryLoader() {
         queryLoaderManager = new QueryLoaderManager(dependencyManager, this);
         queryLoaderManager.load();
         dependencyManager.storeLoadedDependency(queryLoaderManager.getQueries());
+    }
 
+    private void initAdapterManager() {
         adapterManager = new AdapterManager(dependencyManager, packagePrefix);
         adapterManager.load();
         dependencyManager.storeLoadedDependency(adapterManager.getAdapters());
+    }
 
-        moduleManager = new ModuleManager(dependencyManager, packagePrefix);
-        moduleManager.search();
-        moduleManager.instantiate();
+    private void initModuleManager() {
+        moduleManager = new ModuleManager(dependencyManager, packagePrefix, this::isShutdown);
+        moduleManager.init();
+    }
 
+    private void initListenerManager() {
         listenerManager = new ListenerManager(dependencyManager, packagePrefix);
         listenerManager.load(listenerInstance -> getServer().getPluginManager().registerEvents((Listener) listenerInstance, this));
+    }
 
+    private void initSbcfHook() {
         bukkitFrame = new BukkitFrame(this);
         sbcfHookManager = new SbcfHookManager(dependencyManager, packagePrefix);
         sbcfHookManager.load(bukkitFrame::registerCommands);
