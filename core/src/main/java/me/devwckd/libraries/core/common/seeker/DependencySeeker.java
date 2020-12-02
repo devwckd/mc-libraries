@@ -1,6 +1,6 @@
 package me.devwckd.libraries.core.common.seeker;
 
-import org.reflections.Reflections;
+import org.reflections8.Reflections;
 
 import java.util.Collection;
 import java.util.function.Consumer;

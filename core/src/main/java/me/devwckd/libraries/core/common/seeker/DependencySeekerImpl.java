@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.entity.loaded_dependency.LoadedDependency;
 import me.devwckd.libraries.core.common.seeker.entity.AnalyzedClass;
-import org.reflections.Reflections;
+import org.reflections8.Reflections;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.common.Adapters;
 import me.devwckd.libraries.core.annotation.RegisterAdapter;
 import me.devwckd.libraries.core.entity.adapter.Adapter;
-import org.reflections.Reflections;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ConfigurationBuilder;
+import org.reflections8.Reflections;
+import org.reflections8.scanners.TypeAnnotationsScanner;
+import org.reflections8.util.ConfigurationBuilder;
 
 import java.lang.reflect.Constructor;
 
