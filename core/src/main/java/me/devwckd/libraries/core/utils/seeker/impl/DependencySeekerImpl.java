@@ -1,7 +1,8 @@
-package me.devwckd.libraries.core.common.seeker;
+package me.devwckd.libraries.core.utils.seeker.impl;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import me.devwckd.libraries.core.utils.seeker.DependencySeeker;
 import org.reflections8.Reflections;
 import org.reflections8.scanners.MethodAnnotationsScanner;
 import org.reflections8.scanners.TypeAnnotationsScanner;

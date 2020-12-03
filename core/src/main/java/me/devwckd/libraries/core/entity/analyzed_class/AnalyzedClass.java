@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.common.seeker.entity;
+package me.devwckd.libraries.core.entity.analyzed_class;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

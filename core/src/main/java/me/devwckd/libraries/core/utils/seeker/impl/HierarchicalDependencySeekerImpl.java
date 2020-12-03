@@ -1,9 +1,8 @@
-package me.devwckd.libraries.core.common.seeker;
+package me.devwckd.libraries.core.utils.seeker.impl;
 
 import me.devwckd.graph.Graph;
 import me.devwckd.graph.impl.HashGraph;
-import me.devwckd.libraries.core.entity.loaded_dependency.LoadedDependency;
-import me.devwckd.libraries.core.common.seeker.entity.AnalyzedClass;
+import me.devwckd.libraries.core.utils.seeker.HierarchicalDependencySeeker;
 
 import java.util.*;
 import java.util.function.Function;

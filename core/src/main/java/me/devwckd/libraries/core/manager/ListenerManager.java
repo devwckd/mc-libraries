@@ -2,9 +2,9 @@ package me.devwckd.libraries.core.manager;
 
 import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.annotation.RegisterListener;
-import me.devwckd.libraries.core.common.seeker.DependencySeeker;
-import me.devwckd.libraries.core.common.seeker.DependencySeekerImpl;
-import me.devwckd.libraries.core.common.seeker.entity.AnalyzedClass;
+import me.devwckd.libraries.core.utils.seeker.DependencySeeker;
+import me.devwckd.libraries.core.utils.seeker.impl.DependencySeekerImpl;
+import me.devwckd.libraries.core.entity.analyzed_class.AnalyzedClass;
 import me.devwckd.libraries.core.entity.loaded_dependency.LoadedDependency;
 
 import java.util.function.Consumer;

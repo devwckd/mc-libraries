@@ -1,6 +1,4 @@
-package me.devwckd.libraries.core.common.seeker;
-
-import me.devwckd.libraries.core.common.seeker.entity.AnalyzedClass;
+package me.devwckd.libraries.core.utils.seeker;
 
 import java.util.function.Function;
 

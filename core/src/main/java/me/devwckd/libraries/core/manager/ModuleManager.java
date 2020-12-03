@@ -3,17 +3,16 @@ package me.devwckd.libraries.core.manager;
 import me.devwckd.libraries.core.annotation.Export;
 import me.devwckd.libraries.core.annotation.Import;
 import me.devwckd.libraries.core.annotation.Module;
-import me.devwckd.libraries.core.common.seeker.DependencySeeker;
-import me.devwckd.libraries.core.common.seeker.DependencySeekerImpl;
-import me.devwckd.libraries.core.common.seeker.HierarchicalDependencySeeker;
-import me.devwckd.libraries.core.common.seeker.HierarchicalDependencySeekerImpl;
+import me.devwckd.libraries.core.utils.seeker.DependencySeeker;
+import me.devwckd.libraries.core.utils.seeker.impl.DependencySeekerImpl;
+import me.devwckd.libraries.core.utils.seeker.HierarchicalDependencySeeker;
+import me.devwckd.libraries.core.utils.seeker.impl.HierarchicalDependencySeekerImpl;
 import me.devwckd.libraries.core.entity.exported_method.ExportedMethod;
 import me.devwckd.libraries.core.entity.loaded_dependency.LoadedDependency;
 import me.devwckd.libraries.core.entity.unloaded_dependency.UnloadedExport;
 import me.devwckd.libraries.core.utils.ParameterlessPredicate;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Optional;
 
 import static java.util.Arrays.*;

@@ -1,4 +1,4 @@
-package me.devwckd.libraries.core.common.seeker;
+package me.devwckd.libraries.core.utils.seeker;
 
 import org.reflections8.Reflections;
 
