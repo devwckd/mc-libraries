@@ -2,9 +2,10 @@ package me.devwckd.libraries.core.common.seeker;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import me.devwckd.libraries.core.entity.loaded_dependency.LoadedDependency;
-import me.devwckd.libraries.core.common.seeker.entity.AnalyzedClass;
 import org.reflections8.Reflections;
+import org.reflections8.scanners.MethodAnnotationsScanner;
+import org.reflections8.scanners.TypeAnnotationsScanner;
+import org.reflections8.util.ConfigurationBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +37,14 @@ public class DependencySeekerImpl<I, A, R> implements DependencySeeker<I, A, R> 
 
     @Override
     public void setCollection(Function<Reflections, Collection<I>> collectionFunction) {
-        final Reflections reflections = new Reflections(packagePrefix);
+        final Reflections reflections = new Reflections(
+          new ConfigurationBuilder()
+            .forPackages(packagePrefix)
+            .addScanners(
+              new TypeAnnotationsScanner(),
+              new MethodAnnotationsScanner()
+            )
+        );
         this.collection = collectionFunction.apply(reflections);
     }
 
