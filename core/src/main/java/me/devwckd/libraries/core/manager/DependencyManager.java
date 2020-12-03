@@ -33,6 +33,8 @@ public class DependencyManager {
         if(loadedDependency != null) return loadedDependency.getInstance();
 
         final UnloadedDependency unloadedDependency = unloadedDependencies.findByClass(clazz);
+        if(unloadedDependency == null) return null;
+
         final Object instance;
         try {
             instance = unloadedDependency.instantiate(this::resolveDependencyFromClass, this::resolveDependencyFromName);
@@ -52,6 +54,8 @@ public class DependencyManager {
         if(loadedDependency != null) return loadedDependency.getInstance();
 
         final UnloadedDependency unloadedDependency = unloadedDependencies.findByName(name);
+        if(unloadedDependency == null) return null;
+
         final Object instance;
         try {
             instance = unloadedDependency.instantiate(this::resolveDependencyFromClass, this::resolveDependencyFromName);
