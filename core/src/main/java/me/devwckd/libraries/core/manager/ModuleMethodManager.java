@@ -65,6 +65,7 @@ public class ModuleMethodManager {
 
             final Object declaringInstance = dependencyManager.resolveDependencyFromClass(method.getDeclaringClass());
             try {
+                method.setAccessible(true);
                 method.invoke(declaringInstance);
             } catch (Exception exception) {
                 exception.printStackTrace();
