@@ -21,7 +21,7 @@ public interface DependencySeeker<I, A, R> {
 
     void seek();
 
-    Collection<R> getLoadedDependencies();
+    Collection<R> getResult();
     void consumeResult(Consumer<R> loadedDependencyConsumer);
 
 }

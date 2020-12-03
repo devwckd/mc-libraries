@@ -8,8 +8,10 @@ import me.devwckd.libraries.core.annotation.Reload;
 import me.devwckd.libraries.core.utils.ParameterlessPredicate;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author devwckd
@@ -21,18 +23,24 @@ public class ModuleMethodManager {
     private final DependencyManager dependencyManager;
     private final ParameterlessPredicate shutdownTrigger;
 
-    private final LinkedList<Method> loadMethods = new LinkedList<>();
-    private final LinkedList<Method> enableMethods = new LinkedList<>();
-    private final LinkedList<Method> disableMethods = new LinkedList<>();
-    private final LinkedList<Method> reloadMethods = new LinkedList<>();
+    private final List<Class<?>> checkedClasses = new ArrayList<>();
+
+    private final List<Method> loadMethods = new LinkedList<>();
+    private final List<Method> enableMethods = new LinkedList<>();
+    private final List<Method> disableMethods = new LinkedList<>();
+    private final List<Method> reloadMethods = new LinkedList<>();
 
     public void checkMethods(Class<?> clazz) {
+        if(checkedClasses.contains(clazz)) return;
+
         for (Method method : clazz.getDeclaredMethods()) {
             if(method.isAnnotationPresent(Load.class)) loadMethods.add(method);
             if(method.isAnnotationPresent(Enable.class)) enableMethods.add(method);
             if(method.isAnnotationPresent(Disable.class)) disableMethods.add(method);
             if(method.isAnnotationPresent(Reload.class)) reloadMethods.add(method);
         }
+
+        checkedClasses.add(clazz);
     }
 
     public void load() {

@@ -65,7 +65,7 @@ public class DependencySeekerImpl<I, A, R> implements DependencySeeker<I, A, R> 
     }
 
     @Override
-    public Collection<R> getLoadedDependencies() {
+    public Collection<R> getResult() {
         return loadedDependencyList;
     }
 
