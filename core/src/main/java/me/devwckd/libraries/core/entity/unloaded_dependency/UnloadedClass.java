@@ -1,5 +1,6 @@
 package me.devwckd.libraries.core.entity.unloaded_dependency;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +15,7 @@ import static java.util.Arrays.*;
  * @author devwckd
  */
 
-@Getter
+@Data
 @RequiredArgsConstructor
 public class UnloadedClass implements UnloadedDependency {
 

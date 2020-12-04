@@ -1,11 +1,14 @@
 package me.devwckd.libraries.core.entity.unloaded_dependency;
 
+import lombok.Data;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Function;
 
 /**
  * @author devwckd
  */
+
 public interface UnloadedDependency {
 
     Class<?> getDependencyClass();

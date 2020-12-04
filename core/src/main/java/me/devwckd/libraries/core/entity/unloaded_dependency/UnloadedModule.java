@@ -1,5 +1,6 @@
 package me.devwckd.libraries.core.entity.unloaded_dependency;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.devwckd.libraries.core.annotation.Import;
@@ -14,7 +15,7 @@ import static java.util.Arrays.stream;
  * @author devwckd
  */
 
-@Getter
+@Data
 @RequiredArgsConstructor
 public class UnloadedModule implements UnloadedDependency {
 
@@ -38,7 +39,7 @@ public class UnloadedModule implements UnloadedDependency {
           .map(parameter -> {
               String name;
               if (parameter.isAnnotationPresent(Import.class) &&
-                !(name = parameter.getAnnotation(Import.class).value()).equals("")) {
+                !(name = parameter.getAnnotation(Import.class).value()).isEmpty()) {
                   return loadByName.apply(name);
               } else {
                   return loadByClass.apply(parameter.getType());

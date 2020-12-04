@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import static java.util.Arrays.stream;
+import static java.util.Collections.*;
 
 /**
  * @author devwckd
@@ -45,10 +46,13 @@ public class HierarchicalDependencySeekerImpl<I, A, R> extends DependencySeekerI
     }
 
     protected void instantiateAnalyzedAndCatalogedClasses() {
+        System.out.println(graph);
         for (A vertex : graph.getVertices()) {
             final List<A> edges = new ArrayList<>(graph.depthFirstTraversal(vertex));
-            Collections.reverse(edges);
+            reverse(edges);
+            System.out.println("  | " + vertex);
             for (A edge : edges) {
+                System.out.println("  |-> " + edge);
                 final R loadedDependency = instantiator.apply(edge);
                 if(loadedDependency == null) continue;
                 loadedDependencyList.add(loadedDependency);

@@ -30,7 +30,7 @@ public class ExportedMethod {
     }
 
     public boolean isExportedByModule() {
-        return exportedClass.isAnnotationPresent(Module.class);
+        return exporterClass.isAnnotationPresent(Module.class);
     }
 
 }

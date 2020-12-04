@@ -1,14 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
-group 'me.devwckd'
-version '1.0-SNAPSHOT'
+allprojects {
+    group 'com.github.devwckd.libraries'
+    version '0.1'
+}
 
 subprojects {
-    group 'me.devwckd.libraries'
-    version '0.1'
-
+    apply plugin: 'maven-publish'
     afterEvaluate {
 
         sourceCompatibility = 1.8
@@ -25,5 +26,6 @@ subprojects {
             // Jitpack repositories
             maven { url 'https://jitpack.io' }
         }
+
     }
 }

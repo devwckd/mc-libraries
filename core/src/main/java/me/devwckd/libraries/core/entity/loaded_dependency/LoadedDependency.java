@@ -37,4 +37,12 @@ public class LoadedDependency {
     public int hashCode() {
         return Objects.hash(instance, name);
     }
+
+    @Override
+    public String toString() {
+        return "LoadedDependency{" +
+          "instance=" + instance.getClass().getSimpleName() +
+          ", name='" + name + '\'' +
+          '}';
+    }
 }

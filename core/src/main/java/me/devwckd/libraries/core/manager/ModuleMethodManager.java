@@ -8,10 +8,9 @@ import me.devwckd.libraries.core.annotation.Reload;
 import me.devwckd.libraries.core.utils.ParameterlessPredicate;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Arrays.*;
 
 /**
  * @author devwckd
@@ -64,9 +63,13 @@ public class ModuleMethodManager {
             if(useTrigger && shutdownTrigger.test()) return;
 
             final Object declaringInstance = dependencyManager.resolveDependencyFromClass(method.getDeclaringClass());
+            final Object[] objects = stream(method.getParameters())
+              .map(dependencyManager::resolveDependencyFromParameter)
+              .toArray();
+
             try {
                 method.setAccessible(true);
-                method.invoke(declaringInstance);
+                method.invoke(declaringInstance, objects);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
