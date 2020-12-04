@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+
 }
 
 dependencies {
@@ -8,5 +9,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     implementation 'com.github.devwckd:java-hash-graph:167ce8499e'
+    api 'com.github.devwckd:java-hash-graph:167ce8499e'
     implementation 'net.oneandone.reflections8:reflections8:0.11.7'
+    api 'net.oneandone.reflections8:reflections8:0.11.7'
 }
