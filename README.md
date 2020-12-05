@@ -2,6 +2,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/devwckd/mc-libraries?color=orange&style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/devwckd/mc-libraries?color=orange&style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/devwckd/mc-libraries?color=orange&style=for-the-badge)
+![JitPack](https://img.shields.io/jitpack/v/github/devwckd/mc-libraries?color=orange&style=for-the-badge)
 
 MC-libraries is a heavily reflection based library inspired by Spring, NestJS and others.  
 Need help? contact me on [twitter](https://twitter.com/devwckd) or message me on discord **devwckd#8790**.
