@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    group 'com.github.devwckd.libraries'
+    group 'com.github.devwckd.mc-libraries'
     version '0.1'
 }
 

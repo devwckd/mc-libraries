@@ -33,10 +33,12 @@ public class LibraryPlugin extends JavaPlugin {
 
     @Override
     public final void onLoad() {
-        init();
+        preLoad();
 
         if(isShutdown) return;
         load();
+
+        if(isShutdown) return;
         moduleManager.load();
     }
 
@@ -44,7 +46,12 @@ public class LibraryPlugin extends JavaPlugin {
     public final void onEnable() {
         if(isShutdown) return;
         enable();
+
+        if(isShutdown) return;
         moduleManager.enable();
+
+        if(isShutdown) return;
+        postEnable();
     }
 
     @Override
@@ -68,11 +75,14 @@ public class LibraryPlugin extends JavaPlugin {
         getServer().getPluginManager().disablePlugin(this);
     }
 
-    private void init() {
+    private void preLoad() {
         initDependencyManager();
         initQueryLoader();
         initAdapterManager();
         initModuleManager();
+    }
+
+    private void postEnable() {
         initListenerManager();
         initSbcfHook();
     }
@@ -83,8 +93,8 @@ public class LibraryPlugin extends JavaPlugin {
     }
 
     private void initQueryLoader() {
-        queryLoaderManager = new QueryLoaderManager(dependencyManager, this);
-        queryLoaderManager.load();
+        queryLoaderManager = new QueryLoaderManager(this);
+        queryLoaderManager.init();
         dependencyManager.storeLoadedDependency(queryLoaderManager.getQueries());
     }
 
