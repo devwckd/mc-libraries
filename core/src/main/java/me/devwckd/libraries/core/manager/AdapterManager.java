@@ -10,6 +10,9 @@ import org.reflections8.scanners.TypeAnnotationsScanner;
 import org.reflections8.util.ConfigurationBuilder;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+
+import static java.util.Arrays.stream;
 
 /**
  * @author devwckd
@@ -35,13 +38,13 @@ public class AdapterManager {
                 throw new ClassCastException("Adapter " + adapterClass.getSimpleName() + " is not an instance of Adapter<?, ?>.");
 
             final Constructor<?> primaryConstructor = adapterClass.getConstructors()[0];
-            if(primaryConstructor.getParameters().length > 0) {
-                throw new IllegalStateException("Adapters cannot have dependencies on their constructor");
-            }
+            Object[] objects = stream(primaryConstructor.getParameters())
+                    .map(dependencyManager::resolveDependencyFromParameter)
+                    .toArray();
 
             final Object adapterInstance;
             try {
-                adapterInstance = primaryConstructor.newInstance();
+                adapterInstance = primaryConstructor.newInstance(objects);
             } catch (Exception exception) {
                 exception.printStackTrace();
                 return;
