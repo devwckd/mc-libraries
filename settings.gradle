@@ -1,4 +1,4 @@
-rootProject.name = 'new-library'
+rootProject.name = 'mc-libraries'
 include 'core'
 include 'spigot'
 include 'bungee'
