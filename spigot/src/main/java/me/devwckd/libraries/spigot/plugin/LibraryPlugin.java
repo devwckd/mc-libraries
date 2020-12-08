@@ -100,8 +100,8 @@ public class LibraryPlugin extends JavaPlugin {
 
     private void initAdapterManager() {
         adapterManager = new AdapterManager(dependencyManager, packagePrefix);
-        adapterManager.load();
         dependencyManager.storeLoadedDependency(adapterManager.getAdapters());
+        adapterManager.load();
     }
 
     private void initModuleManager() {
