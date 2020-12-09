@@ -1,5 +1,6 @@
 package me.devwckd.libraries.spigot.plugin;
 
+import com.sun.org.slf4j.internal.LoggerFactory;
 import lombok.Getter;
 import me.devwckd.libraries.core.manager.AdapterManager;
 import me.devwckd.libraries.core.manager.DependencyManager;
@@ -7,9 +8,13 @@ import me.devwckd.libraries.core.manager.ListenerManager;
 import me.devwckd.libraries.core.manager.ModuleManager;
 import me.devwckd.libraries.core.manager.QueryLoaderManager;
 import me.devwckd.libraries.core.manager.SbcfHookManager;
+import me.devwckd.libraries.core.utils.LibraryLogger;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Logger;
 
 /**
  * @author devwckd
@@ -77,6 +82,7 @@ public class LibraryPlugin extends JavaPlugin {
 
     private void preLoad() {
         initDependencyManager();
+        initLogger();
         initQueryLoader();
         initAdapterManager();
         initModuleManager();
@@ -96,6 +102,10 @@ public class LibraryPlugin extends JavaPlugin {
         queryLoaderManager = new QueryLoaderManager(this);
         queryLoaderManager.init();
         dependencyManager.storeLoadedDependency(queryLoaderManager.getQueries());
+    }
+    private void initLogger() {
+        final LibraryLogger libraryLogger = new LibraryLogger(getServer().getLogger(), getDescription().getName());
+        dependencyManager.storeLoadedDependency(libraryLogger);
     }
 
     private void initAdapterManager() {
