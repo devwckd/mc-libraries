@@ -2,12 +2,7 @@ package me.devwckd.libraries.bungee.plugin;
 
 
 import lombok.Getter;
-import me.devwckd.libraries.core.manager.AdapterManager;
-import me.devwckd.libraries.core.manager.DependencyManager;
-import me.devwckd.libraries.core.manager.ListenerManager;
-import me.devwckd.libraries.core.manager.ModuleManager;
-import me.devwckd.libraries.core.manager.QueryLoaderManager;
-import me.devwckd.libraries.core.manager.SbcfHookManager;
+import me.devwckd.libraries.core.manager.*;
 import me.devwckd.libraries.core.utils.LibraryLogger;
 import me.saiintbrisson.bungee.command.BungeeFrame;
 import net.md_5.bungee.api.plugin.Listener;
