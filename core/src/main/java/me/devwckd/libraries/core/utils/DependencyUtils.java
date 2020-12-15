@@ -20,7 +20,7 @@ import static lombok.AccessLevel.*;
 public class DependencyUtils {
 
     public static <T> T instantiate(DependencyManager dependencyManager, Class<?> clazz, Function<Object, T> returnFunction) {
-        final Constructor<?> primaryConstructor = clazz.getConstructors()[0];
+        final Constructor<?> primaryConstructor = clazz.getDeclaredConstructors()[0];
         final Object[] objects = stream(primaryConstructor.getParameters())
           .map(dependencyManager::resolveDependencyFromParameter)
           .toArray();

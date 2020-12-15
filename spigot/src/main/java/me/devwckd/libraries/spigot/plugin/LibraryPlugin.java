@@ -30,7 +30,6 @@ public class LibraryPlugin extends JavaPlugin {
     @Override
     public final void onLoad() {
         preLoad();
-
         if(isShutdown) return;
         load();
 
@@ -72,6 +71,7 @@ public class LibraryPlugin extends JavaPlugin {
     }
 
     private void preLoad() {
+        initBukkitFrame();
         initDependencyManager();
         initLogger();
         initQueryLoader();
@@ -81,7 +81,11 @@ public class LibraryPlugin extends JavaPlugin {
 
     private void postEnable() {
         initListenerManager();
-        initSbcfHook();
+        registerCommands();
+    }
+
+    private void initBukkitFrame() {
+        bukkitFrame = new BukkitFrame(this);
     }
 
     private void initDependencyManager() {
@@ -107,6 +111,7 @@ public class LibraryPlugin extends JavaPlugin {
 
     private void initModuleManager() {
         moduleManager = new ModuleManager(dependencyManager, packagePrefix, this::isShutdown);
+        moduleManager.loadExports(this);
         moduleManager.init();
     }
 
@@ -115,8 +120,7 @@ public class LibraryPlugin extends JavaPlugin {
         listenerManager.load(listenerInstance -> getServer().getPluginManager().registerEvents((Listener) listenerInstance, this));
     }
 
-    private void initSbcfHook() {
-        bukkitFrame = new BukkitFrame(this);
+    private void registerCommands() {
         sbcfHookManager = new SbcfHookManager(dependencyManager, packagePrefix);
         sbcfHookManager.load(bukkitFrame::registerCommands);
     }

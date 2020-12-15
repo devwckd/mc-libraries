@@ -2,6 +2,7 @@ package me.devwckd.libraries.core.utils;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.lang.String.*;
@@ -11,6 +12,10 @@ public class LibraryLogger {
 
     private final Logger logger;
     private final String pluginName;
+
+    public void setLevel(Level level) {
+        logger.setLevel(level);
+    }
 
     public void severe(String message, Object... objects) {
         logger.severe(format("[" + pluginName + "] " + message, objects));

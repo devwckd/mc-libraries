@@ -10,6 +10,7 @@ import me.devwckd.libraries.core.utils.seeker.HierarchicalDependencySeeker;
 import me.devwckd.libraries.core.utils.seeker.impl.DependencySeekerImpl;
 import me.devwckd.libraries.core.utils.seeker.impl.HierarchicalDependencySeekerImpl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Optional;
@@ -24,15 +25,14 @@ import static me.devwckd.libraries.core.utils.DependencyUtils.instantiate;
 
 public class ModuleManager {
 
+
     private final DependencyManager dependencyManager;
     private final String packagePrefix;
-    private final ParameterlessPredicate shutdownTrigger;
     private final ModuleMethodManager moduleMethodManager;
 
     public ModuleManager(DependencyManager dependencyManager, String packagePrefix, ParameterlessPredicate shutdownTrigger) {
         this.dependencyManager = dependencyManager;
         this.packagePrefix = packagePrefix;
-        this.shutdownTrigger = shutdownTrigger;
         this.moduleMethodManager = new ModuleMethodManager(dependencyManager, shutdownTrigger);
     }
 
@@ -51,6 +51,7 @@ public class ModuleManager {
         moduleSeeker.sort(
           clazz -> stream(clazz.getConstructors()[0].getParameters())
             .map(replaceImportParametersWithModules(exportSeeker))
+            .filter(filteredClass -> filteredClass.isAnnotationPresent(Module.class))
             .toArray(Class<?>[]::new)
         );
         moduleSeeker.sort(
@@ -76,6 +77,21 @@ public class ModuleManager {
             return instantiate;
         });
         moduleSeeker.seek();
+    }
+
+    public void loadExports(Object instance) {
+        for (Method declaredMethod : instance.getClass().getDeclaredMethods()) {
+            if(!declaredMethod.isAnnotationPresent(Export.class)) continue;
+
+            try {
+                declaredMethod.setAccessible(true);
+                dependencyManager.storeLoadedDependency(declaredMethod.invoke(instance), declaredMethod.getAnnotation(Export.class).value());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void load() {

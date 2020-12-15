@@ -6,9 +6,11 @@ import me.devwckd.libraries.core.utils.seeker.HierarchicalDependencySeeker;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static java.util.Collections.*;
+import static java.util.Comparator.*;
 
 /**
  * @author devwckd
@@ -46,7 +48,11 @@ public class HierarchicalDependencySeekerImpl<I, A, R> extends DependencySeekerI
     }
 
     protected void instantiateAnalyzedAndCatalogedClasses() {
-        for (A vertex : graph.getVertices()) {
+        final Set<A> vertices = graph.getVertices().stream()
+          .sorted(comparingInt(o -> graph.getEdges(o).size()))
+          .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        for (A vertex : vertices) {
             final List<A> edges = new ArrayList<>(graph.depthFirstTraversal(vertex));
             reverse(edges);
             for (A edge : edges) {

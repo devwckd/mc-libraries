@@ -72,6 +72,7 @@ public class LibraryPlugin extends Plugin {
     }
 
     private void preLoad() {
+        initBungeeFrame();
         initDependencyManager();
         initLogger();
         initQueryLoader();
@@ -82,6 +83,10 @@ public class LibraryPlugin extends Plugin {
     private void postEnable() {
         initListenerManager();
         initSbcfHook();
+    }
+
+    private void initBungeeFrame() {
+        bungeeFrame = new BungeeFrame(this);
     }
 
     private void initDependencyManager() {
@@ -108,6 +113,7 @@ public class LibraryPlugin extends Plugin {
 
     private void initModuleManager() {
         moduleManager = new ModuleManager(dependencyManager, packagePrefix, this::isShutdown);
+        moduleManager.loadExports(this);
         moduleManager.init();
     }
 
@@ -117,7 +123,6 @@ public class LibraryPlugin extends Plugin {
     }
 
     private void initSbcfHook() {
-        bungeeFrame = new BungeeFrame(this);
         sbcfHookManager = new SbcfHookManager(dependencyManager, packagePrefix);
         sbcfHookManager.load(bungeeFrame::registerCommands);
     }
